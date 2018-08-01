@@ -7,7 +7,8 @@ const CARDS = [
 		Quibusdam, molestias obcaecati autem quae architecto neque repudiandae natus,
 		dignissimos minus`,
 		subscribers: 10,
-		top: false
+		top: false,
+		full: false
 	},
 	{
 		id: 2,
@@ -17,7 +18,8 @@ const CARDS = [
 		Quibusdam, molestias obcaecati autem quae architecto neque repudiandae natus,
 		dignissimos minus`,
 		subscribers: 12,
-		top: false
+		top: false,
+		full: false
 	},
 	{
 		id: 3,
@@ -27,7 +29,8 @@ const CARDS = [
 		Quibusdam, molestias obcaecati autem quae architecto neque repudiandae natus,
 		dignissimos minus`,
 		subscribers: 13,
-		top: false
+		top: false,
+		full: false
 	}
 ];
 

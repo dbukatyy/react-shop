@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
-export default function Link({icon, count}) {
+export default function Link({icon, count, handleClick}) {
   return(
     <a href=''>
-      <Icon name={icon}/>
+      <Icon name={icon} onClick={handleClick}/>
       {count ? `${count} subscribers` : null}
     </a>
   )
@@ -13,7 +13,8 @@ export default function Link({icon, count}) {
 
 Link.propTypes = {
   icon: PropTypes.string,
-  count: PropTypes.number
+  count: PropTypes.number,
+  handleClick: PropTypes.func
 };
 
 Link.defaultProps = {
