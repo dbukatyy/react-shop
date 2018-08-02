@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import Link from './Link';
 import { Icon, Label, Grid, Button, Divider } from 'semantic-ui-react'
 
-export default function Card({ header, description, image, subscribers, status, full, handleClick, handleToggleCardDescription, editCard }) {
+export default function Card({ header, description, image, subscribers,
+	status, full, handleClick, handleToggleCardDescription, editCard, deleteCard }) {
+
 	const iconStyle = status ? 'star' : 'star outline';
 
 	return (
@@ -31,7 +33,7 @@ export default function Card({ header, description, image, subscribers, status, 
 						<Icon name='edit'/>
 						Edit
 					</Button>
-					<Button>
+					<Button onClick={deleteCard}>
 						<Icon name='trash'/>
 						Delete
 					</Button>
@@ -51,6 +53,7 @@ Card.propTypes = {
 	handleClick: PropTypes.func,
 	handleToggleCardDescription: PropTypes.func,
 	editCard: PropTypes.func.isRequired,
+	deleteCard: PropTypes.func.isRequired
 }
 
 Card.defaultProps = {

@@ -70,6 +70,12 @@ class App extends Component {
     !card.lenght && this.setState({ editCard: card[0], showForm: true });
   }
 
+  deleteCard = (id) => {
+    const cards = this.sortCards(this.state.cards.filter(item => item.id !== id));
+
+    this.setState({ cards });
+  }
+
   render() {
     const { cards, showForm, editCard } = this.state;
     return (
@@ -101,6 +107,7 @@ class App extends Component {
           handleToggleCardStatus={this.toggleCardSatus}
           handleToggleCardDescription={this.toggleDescription}
           editCard={this.editCard}
+          delCard={this.deleteCard}
         />
       </Container>
     );
