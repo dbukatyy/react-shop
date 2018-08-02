@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from './Link';
-import { Icon, Label } from 'semantic-ui-react'
+import { Icon, Label, Grid, Button, Divider } from 'semantic-ui-react'
 
-export default function Card({ header, description, image, subscribers, status, full, handleClick, handleToggleCardDescription }) {
+export default function Card({ header, description, image, subscribers, status, full, handleClick, handleToggleCardDescription, editCard }) {
 	const iconStyle = status ? 'star' : 'star outline';
 
 	return (
@@ -17,8 +17,25 @@ export default function Card({ header, description, image, subscribers, status, 
 				<div className='description'>{full && description}</div>
 			</div>
 			<div className='extra content'>
-				<Link icon='user' count={subscribers} />
-				<Link icon='eye' handleClick={handleToggleCardDescription}/>
+				<Grid>
+					<Grid.Column width={8}>
+						<Link icon='user' count={subscribers} />
+					</Grid.Column>
+					<Grid.Column width={8} style={{'textAlign': 'right'}}>
+						<Link icon='eye' handleClick={handleToggleCardDescription}/>
+					</Grid.Column>
+				</Grid>
+				<Divider />
+				<Button.Group widths='2'>
+					<Button onClick={editCard}>
+						<Icon name='edit'/>
+						Edit
+					</Button>
+					<Button>
+						<Icon name='trash'/>
+						Delete
+					</Button>
+				</Button.Group>
 			</div>
 		</div>
 	)
@@ -32,7 +49,8 @@ Card.propTypes = {
 	status: PropTypes.bool,
 	full: PropTypes.bool,
 	handleClick: PropTypes.func,
-	handleToggleCardDescription: PropTypes.func
+	handleToggleCardDescription: PropTypes.func,
+	editCard: PropTypes.func.isRequired,
 }
 
 Card.defaultProps = {

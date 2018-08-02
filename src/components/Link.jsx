@@ -6,7 +6,7 @@ export default function Link({icon, count, handleClick}) {
   return(
     <a href=''>
       <Icon name={icon} onClick={handleClick}/>
-      {count ? `${count} subscribers` : null}
+      {count >= 0 ? `${count} subscribers` : null}
     </a>
   )
 }
