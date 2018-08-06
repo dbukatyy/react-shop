@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 
-export default function CardsList({ cards, handleToggleCardStatus, handleToggleCardDescription, editCard, delCard }) {
+export default function CardsList({ cards, handleToggleCardStatus, handleToggleCardDescription, delCard }) {
 	const cardsList = cards.map(card =>
 		<Card
 			key={card.id}
+			id={card.id}
 			image={card.image}
 			header={card.header}
 			description={card.description}
@@ -13,7 +14,6 @@ export default function CardsList({ cards, handleToggleCardStatus, handleToggleC
 			status={card.top}
 			handleClick={() => handleToggleCardStatus(card.id)}
 			handleToggleCardDescription={(e) => handleToggleCardDescription(e, card.id)}
-			editCard={() => editCard(card.id)}
 			deleteCard={() => delCard(card.id)}
 			full={card.full}
 		/>
@@ -30,6 +30,5 @@ CardsList.propTypes = {
 	cards: PropTypes.array.isRequired,
 	handleToggleCardStatus: PropTypes.func.isRequired,
 	handleToggleCardDescription: PropTypes.func.isRequired,
-	editCard: PropTypes.func.isRequired,
 	delCard: PropTypes.func.isRequired
 }

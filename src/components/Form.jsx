@@ -45,25 +45,12 @@ export default class AddForm extends Component {
     Object.keys(err).length || this.props.addCard(this.state.data);
   }
 
-  editCard = (card) => {
-    const data = {
-      id: card.id,
-      header: card.header,
-      image: card.image,
-      subscribers: card.subscribers,
-      description: card.description,
-      top: card.top
-    }
-
-    this.setState({ data });
-  }
-
   componentDidMount() {
-    this.props.card.id && this.editCard(this.props.card);
+    this.props.card.id && this.setState({ data: this.props.card });
   }
 
   componentWillReceiveProps({ card }) {
-    card.id && card.id !== this.props.card.id && this.editCard(card);
+    card.id !== this.props.card.id && this.setState({ data: card });
   }
 
   render() {

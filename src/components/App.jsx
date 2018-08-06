@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import CardsList from './CardsList';
 import cards from '../items';
 import _orderBy from 'lodash/orderBy';
+import _find from 'lodash/find';
+import { Route } from 'react-router-dom'
 import Form from './Form'
-import { Container, Menu, Icon, Divider } from 'semantic-ui-react';
+import { Container, Divider } from 'semantic-ui-react';
 
 class App extends Component {
 
   state = {
     cards: [],
-    showForm: false,
-    editCard: {}
   };
 
   componentDidMount() {
@@ -45,68 +45,61 @@ class App extends Component {
   }
 
   addCard = (data) => {
-    const card = {
-      ...data,
-      id: this.state.cards.length + 1,
-    }
+    let cards = [];
 
-    const cards = data.id ?
-                  this.sortCards(this.state.cards.map(item => item.id === data.id ? data : item))
-                  :
-                  this.sortCards([...this.state.cards, card]);
+    if (data.id) {
+      cards = this.sortCards(this.state.cards.map(item => item.id === data.id ? data : item));
+    } else {
+      const card = {
+        ...data,
+        id: this.state.cards.length + 1,
+      }
+
+      cards = this.sortCards([...this.state.cards, card]);
+    }
 
     this.setState({
       cards,
-      showForm: false,
       editCard: {}
     });
-  }
 
-  editCard = (id) => {
-    const card = this.state.cards.filter(card => {
-      return card.id === id
-    })
-
-    !card.lenght && this.setState({ editCard: card[0], showForm: true });
+    this.props.history.push('/form');
   }
 
   deleteCard = (id) => {
     const cards = this.sortCards(this.state.cards.filter(item => item.id !== id));
 
     this.setState({ cards });
+    this.props.history.push('/form');
+  }
+
+  getCard = (match) => {
+    return _find(this.state.cards, ['id', Number(match.params.id)]) || {}
   }
 
   render() {
-    const { cards, showForm, editCard } = this.state;
+    const { cards, editCard } = this.state;
     return (
       <Container>
-        <Menu>
-          <Menu.Item
-            name='editorials'
-          >
-            Editorials
-          </Menu.Item>
-
-          <Menu.Item
-            name='form'
-            onClick={this.toggleForm}
-          >
-            Add card
-            <Icon name={showForm ? 'minus' : 'plus'} size='small'/>
-          </Menu.Item>
-        </Menu>
-        { showForm &&
-          <Form
-            addCard={ this.addCard }
-            card={editCard}
-          />
-        }
+        <Route path="/form" exact render={({match}) => (
+            <Form
+              addCard={ this.addCard }
+              card={ this.getCard(match) }
+            />
+          )}
+        />
+        <Route path="/form/:id" render={({ match }) => (
+            <Form
+              addCard={ this.addCard }
+              card={ this.getCard(match) }
+            />
+          )}
+        />
         <Divider />
         <CardsList
           cards={cards}
           handleToggleCardStatus={this.toggleCardSatus}
           handleToggleCardDescription={this.toggleDescription}
-          editCard={this.editCard}
           delCard={this.deleteCard}
         />
       </Container>

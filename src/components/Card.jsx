@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from './Link';
+import { NavLink } from 'react-router-dom'
 import { Icon, Label, Grid, Button, Divider } from 'semantic-ui-react'
 
-export default function Card({ header, description, image, subscribers,
-	status, full, handleClick, handleToggleCardDescription, editCard, deleteCard }) {
+export default function Card({ id, header, description, image, subscribers,
+	status, full, handleClick, handleToggleCardDescription, deleteCard }) {
 
 	const iconStyle = status ? 'star' : 'star outline';
 
@@ -29,10 +30,12 @@ export default function Card({ header, description, image, subscribers,
 				</Grid>
 				<Divider />
 				<Button.Group widths='2'>
-					<Button onClick={editCard}>
+					<NavLink className='button ui' to={`/form/${id}`}>
 						<Icon name='edit'/>
 						Edit
-					</Button>
+					</NavLink>
+					{/* <Button onClick={editCard}>
+					</Button> */}
 					<Button onClick={deleteCard}>
 						<Icon name='trash'/>
 						Delete
@@ -52,7 +55,6 @@ Card.propTypes = {
 	full: PropTypes.bool,
 	handleClick: PropTypes.func,
 	handleToggleCardDescription: PropTypes.func,
-	editCard: PropTypes.func.isRequired,
 	deleteCard: PropTypes.func.isRequired
 }
 
