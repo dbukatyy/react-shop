@@ -38,12 +38,6 @@ class App extends Component {
     this.setState({ cards: this.sortCards(cards) });
   }
 
-  toggleForm = () => {
-    this.setState({
-      showForm: !this.state.showForm
-    })
-  }
-
   addCard = (data) => {
     let cards = [];
 
@@ -58,10 +52,7 @@ class App extends Component {
       cards = this.sortCards([...this.state.cards, card]);
     }
 
-    this.setState({
-      cards,
-      editCard: {}
-    });
+    this.setState({ cards });
 
     this.props.history.push('/form');
   }
@@ -78,7 +69,7 @@ class App extends Component {
   }
 
   render() {
-    const { cards, editCard } = this.state;
+    const { cards } = this.state;
     return (
       <Container>
         <Route path="/form" exact render={({match}) => (

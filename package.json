@@ -20,6 +20,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "eslint-config-airbnb": "^17.0.0"
+    "eslint-config-airbnb": "^17.0.0",
+    "prettier": "^1.14.0"
   }
 }
