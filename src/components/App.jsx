@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import base from '../base'
 import CardsList from './CardsList';
 import cards from '../items';
 import _orderBy from 'lodash/orderBy';
@@ -14,7 +15,11 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.setState({ cards: this.sortCards(cards) });
+    base.syncState(`cards`, {
+      context: this,
+      state: 'cards',
+      asArray: true
+    });
   }
 
   sortCards = (cards) => _orderBy(cards, ['top','header'], ['desc', 'asc']);
@@ -87,12 +92,16 @@ class App extends Component {
           )}
         />
         <Divider />
+        {cards.length ?
         <CardsList
           cards={cards}
           handleToggleCardStatus={this.toggleCardSatus}
           handleToggleCardDescription={this.toggleDescription}
           delCard={this.deleteCard}
         />
+        :
+        <p>Loading...</p>
+        }
       </Container>
     );
   }
